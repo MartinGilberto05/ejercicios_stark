@@ -1,3 +1,6 @@
+# Martin Gilberto Div. 1f
+# desafio #00 de 
+
 from data_stark import lista_personajes
 
 # B. Recorrer la lista imprimiendo por consola el nombre de cada superhéroe
