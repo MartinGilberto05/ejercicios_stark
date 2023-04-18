@@ -1,5 +1,78 @@
 from data_stark import lista_personajes
 
+while True:
+    print("Seleccione una opción:\n")
+    print("1. Imprimir nombre de cada superhéroe de género M")
+    print("2. Imprimir nombre de cada superhéroe de género F")
+    print("3. Encontrar el superhéroe más alto de género M", "Indicador C")
+    print("4. Encontrar el superhéroe más bajo de género M", "Indicador D")
+    print("5. Encontrar el superhéroe más alto de género F", "Indicador E")
+    print("6. Encontrar el superhéroe más bajo de género F", "Indicador F")
+    print("7. Calcular altura promedio de superhéroes de género M")
+    print("8. Calcular altura promedio de superhéroes de género F")
+    print("9. Nombre del superhéroe asociado a cada uno de los indicadores anteriores (ítems C a F)")
+    print("10. Cuántos superhéroes tienen cada tipo de color de ojos.")
+    print("11. Cuántos superhéroes tienen cada tipo de color de pelo.")
+    print("12. Cuántos superhéroes tienen cada tipo de inteligencia")
+    print("13. Listado de todos los superhéroes agrupados por color de ojos.")
+    print("14. Listado de todos los superhéroes agrupados por color de pelo.")
+    print("15. Listado de todos los superhéroes agrupados por tipo de inteligencia")
+    print("16. Salir\n")
+
+    opcion = input("\nIngrese el número de opción deseado: ")
+
+    if opcion == "1":
+        nombre_genero_m()
+        continuar = input("\n¿Desea continuar? (S/N): ")
+        if continuar.upper() == "N":
+            break
+    elif opcion == "2":
+        nombre_genero_f()
+        continuar = input("\n¿Desea continuar? (S/N): ")
+        if continuar.upper() == "N":
+            break
+    elif opcion == "3":
+        alto_maxi()
+        continuar = input("\n¿Desea continuar? (S/N): ")
+        if continuar.upper() == "N":
+            break
+    elif opcion == "4":
+        alto_minimo()
+        continuar = input("\n¿Desea continuar? (S/N): ")
+        if continuar.upper() == "N":
+            break
+    elif opcion == "5":
+        altura_promedio()
+        continuar = input("\n¿Desea continuar? (S/N): ")
+        if continuar.upper() == "N":
+            break
+    elif opcion == "6":
+        peso_maxi()
+        continuar = input("¿Desea continuar? (S/N): ")
+        if continuar.upper() == "N":
+            break
+    elif opcion == "7":
+        peso_minimo()
+        continuar = input("¿Desea continuar? (S/N): ")
+        if continuar.upper() == "N":
+            break
+    elif opcion == "8":
+        imprimir_funcion()
+        continuar = input("¿Desea continuar? (S/N): ")
+        if continuar.upper() == "N":
+            break
+    elif opcion == "16":
+        break
+    else:
+        print("Opción inválida. Intente nuevamente.")
+
+
+
+
+
+
+
+
 # A. Recorrer la lista imprimiendo por consola el nombre de cada superhéroe de género M
 def nombre_genero_m():
     for nombres_m in lista_personajes:
@@ -219,18 +292,18 @@ def superheroes_por_color_de_pelo():
     return
 
 # O. Listar todos los superhéroes agrupados por tipo de inteligencia
-def superheroes_por_color_de_ojos():
-    heroe_color_ojos = {}
+def superheroes_por_tipo_de_identidad():
+    heroe_tipo_ident = {}
     for lista in lista_personajes:
-        color_de_ojos = lista["color_ojos"]
-        if color_de_ojos  in heroe_color_ojos:
-            heroe_color_ojos[color_de_ojos].append(lista["nombre"])
+        tipo_identidad = lista["inteligencia"]
+        if tipo_identidad  in heroe_tipo_ident:
+            heroe_tipo_ident[tipo_identidad].append(lista["nombre"])
         else:
-            heroe_color_ojos[color_de_ojos] = [lista['nombre']]
+            heroe_tipo_ident[tipo_identidad] = [lista['nombre']]
 
-    for color in heroe_color_ojos:
-        print(f"\nColor de ojos {color}: ")
-        for heroe in heroe_color_ojos[color]:
+    for tipo in heroe_tipo_ident:
+        print(f"\nTipo de inteligencia {tipo}: ")
+        for heroe in heroe_tipo_ident[tipo]:
             print(f"- {heroe} ")
     return
 
@@ -248,4 +321,6 @@ def superheroes_por_color_de_ojos():
 #color_de_ojos()
 #tipo_de_inteligencia()
 #superheroes_por_color_de_ojos()
-identidad()
+#superheroes_por_color_de_pelo()
+#identidad()
+#superheroes_por_tipo_de_identidad()
