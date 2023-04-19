@@ -120,7 +120,7 @@ def identidad():
             elif altura_min is None or (float(genero['altura']) < altura_min):
                 altura_min = float(genero['altura'])
                 nombre_min = genero['identidad']
-               
+
         elif genero['genero'] == 'F':
             if altura_max_f is None or (float(genero['altura']) > altura_max_f):
                 altura_max_f = float(genero['altura'])
