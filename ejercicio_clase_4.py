@@ -1,5 +1,6 @@
-# Martin Gilberto Div. 1f
-# desafio #00 de 
+# gilberto martin div. 1f
+
+#desafio stark clase 4
 
 from data_stark import lista_personajes
 
