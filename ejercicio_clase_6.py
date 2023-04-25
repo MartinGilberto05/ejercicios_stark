@@ -13,4 +13,5 @@ def extraer_iniciales(nombre_heroe):
     iniciales = [palabra[0] for palabra in palabras]
     return '.'.join(iniciales) + '.'
 
-print(extraer_iniciales(""))
+print(extraer_iniciales("Howard the Duck"))
+
