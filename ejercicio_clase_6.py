@@ -23,12 +23,10 @@ def extraer_iniciales(nombre_heroe:str)->str:
     nombre_heroe = nombre_heroe.replace('the', '')
     nombre_heroe = nombre_heroe.upper()
     palabras = nombre_heroe.split()
-    if palabras[0].lower() == 'the':
-        palabras = palabras[1:]
     iniciales = [palabra[0] for palabra in palabras]
     return '.'.join(iniciales) + '.'
 
-#print(extraer_iniciales(""))
+print(extraer_iniciales("pepe argento"))
 
 #---------------------------------------------------------------------->
 
@@ -44,17 +42,15 @@ En caso de encontrar algún error retornar False, caso contrario retornar True
 '''
 
 def definir_iniciales_nombre(heroe:dict):
-    heroe = lista_personajes
-    for heroe in lista_personajes:
-        if type(heroe) != dict:
-            return False
-        if 'nombre' not in heroe.keys():
-            return False
+    if type(heroe) !=dict or 'nombre' not in heroe:
+        return False
+    else:
         heroe['iniciales'] = extraer_iniciales(heroe['nombre'])
-        #print(heroe)
-    return True
-print(definir_iniciales_nombre('heroe'), '1')
+        return True
     
+print(definir_iniciales_nombre(lista_personajes))
+    
+
 #---------------------------------------------------------------------------------------------->
 
 ''' 1.3.	Crear la función ‘agregar_iniciales_nombre’ la cual recibirá como parámetro:
@@ -67,27 +63,23 @@ En caso que la función definir_iniciales_nombre() retorne False entonces se deb
 ‘El origen de datos no contiene el formato correcto’ 
 La función deberá devolver True en caso de haber finalizado con éxito o False en caso de que haya ocurrido un error'''
 
-def agregar_iniciales_nombre(lista_heroes:list):
-    lista_heroes = lista_personajes
-    
-    if type(lista_heroes) != list:
-        print('No es una lista!!')
-        return False
-    if len(lista_heroes) == 0:
-        print('no tiene elemento')
-        return False
-    for heroe in lista_heroes:
-        if not definir_iniciales_nombre([heroe]):
-            print('El origen de datos no contiene el formato correcto')
-            return False
-  
-    return True
+def agregar_iniciales_nombre(lista_heroes):
+    if type(lista_heroes) != list or len(lista_heroes) == 0:
+        for heroe in lista_heroes:
+            iniciales = definir_iniciales_nombre(heroe)
 
-print(agregar_iniciales_nombre('lista_heroes'))
+            if not iniciales:
+                print("El origen de datos no contiene el formato correcto")
+            return False
+    else:
+        return True
+
+print(agregar_iniciales_nombre(lista_personajes))
+
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------->
 
-'''1.3.	Crear la función ‘stark_imprimir_nombres_con_iniciales’  la cual recibirá como parámetro:
+'''1.4.	Crear la función ‘stark_imprimir_nombres_con_iniciales’  la cual recibirá como parámetro:
 ●	lista_heroes: la lista de personajes
 La función deberá utilizar la función agregar_iniciales_nombre’ para añadirle las iniciales a los diccionarios contenidos en la lista_heroes
 Luego deberá imprimir la lista completa de los nombres de los personajes seguido de las iniciales encerradas entre paréntesis () 
@@ -101,26 +93,17 @@ Ejemplo de salida:
 …
 La función no retorna nada
 '''
+print('1.4')
 def stark_imprimir_nombres_con_iniciales(lista_heroes):
-    lista_heroes = lista_personajes
-   
-    if type(lista_heroes) != list:
-        print('Error: debe ser una lista')
+    if type(lista_heroes) != list or len(lista_heroes) == 0:
         return
-    if len(lista_heroes) == 0:
-        print('Error: la lista debe contener al menos un elemento')
-        return
-    heroes_con_iniciales = []
+    agregar_iniciales_nombre(lista_heroes)
+    
+        
     for heroe in lista_heroes:
-        if type(heroe) != dict or 'nombre' not in heroe:
-            print('Error: cada elemento de la lista debe ser un diccionario')
-            return
-        heroe['iniciales'] = agregar_iniciales_nombre(heroe['nombre'])
-        heroes_con_iniciales.append(heroe)
-    for heroe in heroes_con_iniciales:
-        print(f"* {heroe['nombre']} ({heroe['iniciales']})")
+        print(f"* {heroe['nombre']} ({extraer_iniciales(heroe['nombre'])})")
 
-stark_imprimir_nombres_con_iniciales('lista_heroes')
+#stark_imprimir_nombres_con_iniciales(lista_personajes)
 
 #---------------------------------------------------------------------------------->
 '''2.1. Crear la función ‘generar_codigo_heroe’ la cual recibirá como
@@ -148,14 +131,76 @@ La función deberá validar:
 (‘M’, ‘F’ o ‘NB’)
 En caso de no pasar las validaciones retornar ‘N/A’. En caso de verificarse
 correctamente retornar el código generado'''
+
 def generar_codigo_heroe(id_heroe:int, genero_heroe:str) -> str:
-    if not isinstance(id_heroe, int) or not genero_heroe or genero_heroe not in ('M', 'F', 'NB'):
+    if type(id_heroe)!= int or not genero_heroe or genero_heroe not in ('M', 'F', 'NB'):
         return 'N/A'
     codigo = f"{genero_heroe}-" + str(id_heroe).zfill(9)
-    return codigo[-10:]
+    return codigo
 
-print(generar_codigo_heroe(1, 'F'))  # F-000000001
-print(generar_codigo_heroe(2, 'M'))  # M-000000002
-print(generar_codigo_heroe(10, 'NB'))  # NB-000000010
-print(generar_codigo_heroe('a', 'F'))  # N/A
-print(generar_codigo_heroe(3, 'X'))  # N/A
+#print(generar_codigo_heroe(1, 'F'))  # F-000000001
+#print(generar_codigo_heroe(2, 'M'))  # M-000000002
+#print(generar_codigo_heroe(10, 'NB'))  # NB-000000010
+#print(generar_codigo_heroe('a', 'F'))  # N/A
+#print(generar_codigo_heroe(3, 'X'))  # N/A
+
+#----------------------------------------------------------------------------------------------->
+
+'''2.2. Crear la función ‘agregar_codigo_heroe’ la cual recibirá como
+parámetro:
+● heroe: un diccionario con los datos del personaje
+● id_heroe: un entero que representa el identificador del héroe.
+○ NOTA: el valor de id_heroe lo vamos a generar recién el punto
+2.3. Para probar la función podes pasarle cualquier entero
+La función deberá agregar una nueva clave llamada ‘codigo_heroe’ al
+diccionario ‘heroe’ recibido como parámetro y asignarle como valor un código
+utilizando la función ‘generar_codigo_heroe’
+
+La función deberá validar:
+● Que el diccionario recibido como parámetro no se encuentre vacío.
+● Que el código recibido mediante generar_codigo_heroe tenga
+exactamente 10 caracteres
+En caso de pasar las validaciones correctamente la función deberá retornar
+True, en caso de encontrarse un error retornar False'''
+
+def agregar_codigo_heroe(heroe: dict, id_heroe: int):
+
+    if type(heroe) != dict:
+        return False
+    
+    codigo_heroe = generar_codigo_heroe(id_heroe, heroe['genero'])
+    if len(codigo_heroe) != 10:
+        return False
+    
+    else:
+        heroe['codigo_heroe'] = codigo_heroe
+        return True
+
+print(agregar_codigo_heroe(lista_personajes, 8))
+
+
+'''2.3. Crear la función ‘stark_generar_codigos_heroes’ la cual recibirá como
+parámetro:
+● lista_heroes: la lista de personajes
+La función deberá iterar la lista de personajes y agregarle el código a cada
+uno de los personajes.
+El código del héroe (id_heore) surge de la posición del mismo dentro de la
+lista_heroes (comenzando por el 1).
+Reutilizar la función agregar_codigo_heroe pasándole como argumentos el
+héroe que se está iterando y el id_heroe
+Una vez finalizado imprimir por pantalla un mensaje como el siguiente:
+(## representa la cantidad de códigos generados):
+Se asignaron ## códigos
+* El código del primer héroe es: M-00000001
+* El código del del último héroe es: M-00001224
+La función deberá validar::
+● La lista contenga al menos un elemento
+● Todos los elementos de la lista sean del tipo diccionario
+
+● Todos los elementos contengan la clave ‘genero’
+En caso de encontrar algún error, informar por pantalla: ‘El origen de datos no
+contiene el formato correcto’
+La función no retorna ningún valor.'''
+
+#def stark_generar_codigos_heroes(lista_heroes:list):
+    
