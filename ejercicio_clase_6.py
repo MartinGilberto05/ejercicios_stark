@@ -98,8 +98,7 @@ def stark_imprimir_nombres_con_iniciales(lista_heroes):
     if type(lista_heroes) != list or len(lista_heroes) == 0:
         return
     agregar_iniciales_nombre(lista_heroes)
-    
-        
+
     for heroe in lista_heroes:
         print(f"* {heroe['nombre']} ({extraer_iniciales(heroe['nombre'])})")
 
@@ -176,7 +175,7 @@ def agregar_codigo_heroe(heroe: dict, id_heroe: int):
         heroe['codigo_heroe'] = codigo_heroe
         return True
 
-print(agregar_codigo_heroe(lista_personajes, 8))
+print(agregar_codigo_heroe(lista_personajes, 1))
 
 
 '''2.3. Crear la función ‘stark_generar_codigos_heroes’ la cual recibirá como
@@ -201,6 +200,65 @@ La función deberá validar::
 En caso de encontrar algún error, informar por pantalla: ‘El origen de datos no
 contiene el formato correcto’
 La función no retorna ningún valor.'''
+print(2.3)
+'''def stark_generar_codigos_heroes(lista_heroes, heroe,id_heroe):
+    for lista_heroes in lista_personajes:
+        
+        if type(heroe) != dict:
+            return False
 
-#def stark_generar_codigos_heroes(lista_heroes:list):
+        codigo_heroe = generar_codigo_heroe(id_heroe, heroe['genero'])
+        if len(codigo_heroe) != 10:
+            return False
+
+        else:
+            heroe['codigo_heroe'] = codigo_heroe
+            return True
+print(agregar_codigo_heroe(lista_personajes, 8))'''
+
+def stark_generar_codigos_heroes(lista_heroes:lista_personajes):
+    for i in lista_heroes:
+        if 'genero' not in i:
+            print('el origen de datos no contiene el formato correcto')
+            
+    if len (lista_heroes) == 0 and type(lista_heroes) != dict:
+        print('el origen de datos no contiene el formato correcto')
+    contador = 0 
     
+    for i in lista_personajes:
+        contador +=1
+        agregar_codigo_heroe(i,contador)
+        
+        if contador == 1:
+            primero = i['codigo_heroe']
+        if contador == len(lista_personajes):
+            ultimo = i['codigo_heroe']
+    print(f'Se asignaron {contador} codigos\n el codio del primer heroe es: {primero}\n el codigo del ultimo heroe es: {ultimo}')
+
+
+from typing import List
+
+def agregar_codigo_heroe(heroe: dict, id_heroe: int) -> bool:
+    if not isinstance(heroe, dict):
+        return False
+    
+    codigo_heroe = generar_codigo_heroe(id_heroe, heroe.get('genero'))
+    if len(codigo_heroe) != 10:
+        return False
+    
+    heroe['codigo_heroe'] = codigo_heroe
+    return True
+
+def stark_generar_codigos_heroes(lista_heroes: List[dict]) -> None:
+    if not isinstance(lista_heroes, list) or not all(isinstance(i, dict) for i in lista_heroes):
+        raise ValueError('el origen de datos no contiene el formato correcto')
+    
+    contador = 0 
+    for i in lista_heroes:
+        contador += 1
+        if not agregar_codigo_heroe(i, contador):
+            raise ValueError('no se pudo agregar el codigo al heroe')
+    
+    primero = lista_heroes[0]['codigo_heroe']
+    ultimo = lista_heroes[-1]['codigo_heroe']
+    print(f'Se asignaron {contador} codigos\n el codigo del primer heroe es: {primero}\n el codigo del ultimo heroe es: {ultimo}')
