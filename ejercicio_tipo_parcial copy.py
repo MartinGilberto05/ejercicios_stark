@@ -14,24 +14,17 @@ def parse_json_stark(nombre_archivo:str)->list:
 
 lista_heroes = parse_json_stark("data_stark.json") #----------- cree mi lista original
 lista_aux = lista_heroes.copy()   #------creo una copia de la lista original 
-#print(lista_heroes)
+#print(lista_aux)
+
 
 
 #1
-def listar_n_heroe(cantidad:int, lista_aux:list):
+def listar_n_heroe(lista_aux:list):
     
-    if(len(lista_aux) >= int(cantidad)):
-            lista_auxiliar = [] #esto es una lista vacia
-            for index in range(cantidad):
-                heroe = lista_aux[index]['nombre']
-                lista_auxiliar.append(heroe)
-                print(heroe)
-            resultado = lista_auxiliar
-    else:
-        resultado = False
+    for heroe in lista_aux:
+        print(heroe["nombre"])
     
-    return resultado
-#print(listar_n_heroe(5, lista_aux))
+#print(listar_n_heroe(5,lista_aux ))
 
 def sanitizar_flotante(lista_aux:str):
     for heroe in lista_aux:
@@ -69,10 +62,10 @@ for i in j:'''
 
 #3. Ordenar y Listar héroes por fuerza. Preguntar al usuario si lo quiere ordenar de manera ascendente (‘asc’) o descendente (‘desc’)
 
-lista_aux = ardenar_y_listar(lista_aux, 'fuerza', 'ASC')
+'''lista_aux = ardenar_y_listar(lista_aux, 'fuerza', 'ASC')'''
 
 # 4. 
-def calcular_promedio(lista:list[dict],llave)-> float:
+def calcular_promedio(lista:list[dict],llave:float)-> float:
     acum = 0
     cont = 0
     for i in lista:
@@ -100,8 +93,8 @@ def calcular_min_o_max_altura(lista:list[dict], llave:str, tipo:str, comparador:
                 lista_min.append(i['nombre'])
         print(lista_min)
 
-promedio = calcular_promedio(lista_aux, 'altura')
-print("promedio:",promedio)
+#promedio = calcular_promedio(lista_aux, 'altura')
+#print("promedio:",promedio)
 #calcular_min_o_max_altura(lista_aux, 'altura', 'mayor', 200)
 
 #5
@@ -129,16 +122,17 @@ def guardar_archivo(nombre_archivo:str, lista:list):
 #guardar_archivo('cakka.csv',lista_aux)
 
 #menu
+listar_heroe = []
 while True:
-    print("Menú:")
+    print("\nMenú:")
     print("1. Listar los primeros N héroes")
     print("2. Ordenar y listar héroes por altura")
     print("3. Ordenar y listar héroes por fuerza")
-    print("4. Filtrar héroes por promedio de una key numérica")
+    print("4. Filtrar héroes por promedio")
     print("5. Buscar héroes por inteligencia")
     print("6. Exportar lista de héroes a CSV")
     print("7. Salir")
-
+    
 
     opcion = input("Ingrese una opción: ")
     if not re.match("^[1-7]$", opcion):
@@ -149,18 +143,52 @@ while True:
 
     if opcion == 1:
         
-        n = input("Ingrese la cantidad de héroes a listar: ")
+        n = input("\nIngrese la cantidad de héroes a listar: ")
         if not re.match("^[1-9][0-9]*$", n):
             print("Cantidad inválida. Intente nuevamente.")
             continue
         
         n = int(n)
-        if n > len():
+        if n > len(lista_aux):
             print("Cantidad supera el número máximo de héroes. Intente nuevamente.")
             continue
 
         buscar_heroe = lista_aux[:n]
-        print(listar_n_heroe(buscar_heroe))
+        listar_heroe = buscar_heroe.copy()
+        listar_n_heroe(listar_heroe)
+        #print(listar_heroe)
 
-    if opcion == 2:
-         ardenar_y_listar() 
+    elif opcion == 2:
+        ordenar = input("ASC O DESC??: ")
+        if not re.match('ASC|DESC',ordenar):
+            print("dato invalido, ASC O DESC: ")
+            
+        
+        ardenar_y_listar(listar_heroe,'altura', ordenar)
+        for i in listar_heroe:
+            print(f"Nombre: {i['nombre']}, Altura: {i['altura']}")
+    
+    elif opcion == 3:
+        ordenar = input("ASC O DESC??: ")
+        if not re.match('ASC|DESC',ordenar):
+            print("dato invalido, ASC O DESC: ")
+            
+        
+        ardenar_y_listar(listar_heroe,'fuerza', ordenar)
+        for i in listar_heroe:
+            #print(listar_heroe)
+            print(f"Nombre: {i['nombre']}, Fuerza: {i['fuerza']}")
+            
+            
+    elif opcion == 4:
+        ordenar_key_numerica = input("seleccione un dato, [Fuerza, peso, altura]: ")
+        if not re.match('altura|fuerza|peso', ordenar_key_numerica):
+            print("dato invalido, Fuerza, peso, altura: ")
+        ordenar = input("MAYOR O MENOR??: ")
+        if not re.match('MAYOR|MENOR',ordenar):
+            print("dato invalido, MAYOR O MENOR: ")
+            
+            
+        calcular_min_o_max_altura(listar_heroe, ordenar_key_numerica, ordenar, 200)
+        print(listar_heroe)
+        #calcular_promedio(listar_heroe, ordenar_key_numerica)

@@ -80,3 +80,14 @@ while True:
 
         first_n_heroes = heroes[:n]
         print_heroes(first_n_heroes)
+        
+    elif option == 2:
+        # Ordenar y listar héroes por altura
+        orden = input("Ingrese 'mayor' para ordenar de mayor a menor o 'menor' para ordenar de menor a mayor: ")
+        if orden != 'mayor' and orden != 'menor':
+            print("Opción inválida. Intente nuevamente.")
+            continue
+        
+        reverse = orden == 'mayor'
+        sorted_heroes = sort_heroes_by(heroes, 'height', reverse)
+        print_heroes(sorted_heroes)

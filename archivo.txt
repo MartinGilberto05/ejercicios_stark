@@ -1,3 +1,18 @@
 Primer linea de texto
 segunda linea
 tercera linea
+
+
+#1
+ if(len(lista_aux) >= cantidad):
+            lista_auxiliar = [] #esto es una lista vacia
+            for index in range(cantidad):
+                heroe = lista_aux[index]['nombre']
+                lista_auxiliar.append(heroe)
+                print(heroe)
+            resultado = lista_auxiliar
+            print(lista_auxiliar)
+    else:
+        resultado = False
+    
+    return resultado
